@@ -54,7 +54,7 @@ const MarkdownCode = memo(function MarkdownCode({
       )}
       {...props}
     >
-      <div className="flex items-center justify-between rounded-t-lg border-b bg-neutral-200 px-4 dark:bg-neutral-700 text-muted-foreground">
+      <div className="flex items-center justify-between border-b bg-neutral-200 px-4 dark:bg-neutral-700 text-muted-foreground">
         <p className="text-xs lowercase !leading-none">{language}</p>
         <Button
           variant="ghost"
