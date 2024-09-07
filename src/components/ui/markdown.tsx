@@ -49,7 +49,7 @@ const MarkdownCode = memo(function MarkdownCode({
   return (
     <div
       className={cn(
-        "rounded-lg border bg-neutral-50 dark:bg-neutral-900 shadow",
+        "rounded-lg border bg-neutral-50 dark:bg-neutral-900 shadow overflow-hidden",
         className
       )}
       {...props}
