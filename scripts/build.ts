@@ -49,7 +49,7 @@ const components: ComponentDefinition[] = [
       },
       dark: {
         chat: "217.2 91.2% 59.8%",
-        "chat-foreground": "222.2 47.4% 11.2%",
+        "chat-foreground": "210 40% 98%",
       },
     },
     tailwind: {
