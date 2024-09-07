@@ -13,6 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { MobileSidebar } from "./sidebar";
+
 function ThemeToggle() {
   const { setTheme } = useTheme();
 
@@ -61,7 +63,10 @@ export default function Header() {
         </div>
       </div>
 
-      <ThemeToggle />
+      <div className="flex items-center space-x-2">
+        <ThemeToggle />
+        <MobileSidebar />
+      </div>
     </nav>
   );
 }

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import Header from "@/components/header";
-import Sidebar from "@/components/sidebar";
+import { DesktopSidebar } from "@/components/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
@@ -41,8 +41,8 @@ export default function RootLayout({
         >
           <Header />
           <div className="flex justify-center">
-            <Sidebar />
-            <main className="flex w-[720px] flex-col items-center p-8">
+            <DesktopSidebar />
+            <main className="flex w-full flex-col items-center p-8 sm:w-[720px]">
               {children}
             </main>
           </div>
