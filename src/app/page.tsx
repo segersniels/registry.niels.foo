@@ -17,10 +17,10 @@ export default function Introduction() {
       <LayoutTitle>Introduction</LayoutTitle>
       <LayoutContent>
         <LayoutDescription>
-          Welcome to my opinionated collection of shadcn/ui components with
-          custom styling and enhanced functionality. This library is designed to
-          streamline your development process and maintain consistency across
-          your projects.
+          Welcome to my opinionated collection of shadcn/ui inspired components
+          with custom styling and enhanced functionality. This library is
+          designed to streamline your development process and maintain
+          consistency across your projects.
         </LayoutDescription>
 
         <LayoutSection>
@@ -60,7 +60,10 @@ export default function Introduction() {
           </p>
 
           <Link href="/chat">
-            <Button>
+            <Button
+              variant="ghost"
+              className="hover:bg-transparent p-0 flex items-center gap-1 hover:text-primary/90"
+            >
               <span>Get started</span>
               <ChevronRight className="w-4 h-4" />
             </Button>
