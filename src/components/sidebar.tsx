@@ -43,7 +43,7 @@ export default function Sidebar() {
     <aside className="flex flex-col w-48 p-6 space-y-4">
       <Category>
         <CategoryTitle>General</CategoryTitle>
-        <CategoryItem href="/introduction">Introduction</CategoryItem>
+        <CategoryItem href="/">Introduction</CategoryItem>
       </Category>
 
       <Category>
