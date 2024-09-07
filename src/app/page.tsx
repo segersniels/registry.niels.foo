@@ -31,11 +31,6 @@ export default function Introduction() {
             set of beautifully designed and accessible components that you can
             copy and paste into your apps.
           </p>
-          <p>
-            These components are unstyled by default, giving you the flexibility
-            to customize them to fit your design needs. They provide a solid
-            foundation for building robust and accessible user interfaces.
-          </p>
           <Link href="https://ui.shadcn.com/docs">
             <Button
               variant="ghost"
@@ -59,7 +54,7 @@ export default function Introduction() {
         <LayoutSection>
           <LayoutSectionTitle>Getting Started</LayoutSectionTitle>
           <p>
-            Explore our component library to see examples and usage
+            Explore the component library to see examples and usage
             instructions. Each component is designed to be easily integrated
             into your Next.js projects.
           </p>
