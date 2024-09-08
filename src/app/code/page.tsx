@@ -14,17 +14,15 @@ import Example from "./example";
 import Sections from "./sections";
 
 export default async function Page() {
-  const schema = await getSchema("markdown");
+  const schema = await getSchema("code");
 
   return (
     <Layout>
       <LayoutTitle>{schema.name}</LayoutTitle>
 
       <LayoutDescription>
-        An opinionated markdown component that can be used to display markdown
-        content. It was a conscious choice to not include syntax highlighting
-        for code blocks as I wanted to give users freedom to use their preferred
-        syntax highlighter.
+        A basic code component that can be used to display code with syntax
+        highlighting.
       </LayoutDescription>
 
       <LayoutContent>
@@ -35,7 +33,7 @@ export default async function Page() {
           <Code
             language="bash"
             showLineNumbers={false}
-          >{`npx shadcn add "https://registry.niels.foo/markdown.json"`}</Code>
+          >{`npx shadcn add "https://registry.niels.foo/code.json"`}</Code>
         </LayoutSection>
 
         <Sections />

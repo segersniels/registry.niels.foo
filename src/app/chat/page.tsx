@@ -1,3 +1,4 @@
+import Code from "@/components/code";
 import {
   Layout,
   LayoutContent,
@@ -7,7 +8,6 @@ import {
   LayoutTitle,
 } from "@/components/layout";
 import Source from "@/components/source";
-import { Markdown } from "@/components/ui/markdown";
 
 import { getSchema } from "../actions";
 import Example from "./example";
@@ -29,9 +29,10 @@ export default async function Page() {
 
         <LayoutSection>
           <LayoutSectionTitle>Installation</LayoutSectionTitle>
-          <Markdown
+          <Code
+            language="bash"
             showLineNumbers={false}
-          >{`\`\`\`bash\nnpx shadcn add "https://registry.niels.foo/chat.json"\n\`\`\``}</Markdown>
+          >{`npx shadcn add "https://registry.niels.foo/chat.json"`}</Code>
         </LayoutSection>
 
         <Source content={schema.files[0].content} />

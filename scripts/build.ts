@@ -70,22 +70,20 @@ const components: ComponentDefinition[] = [
   {
     name: "markdown",
     path: path.join(__dirname, "../src/components/ui/markdown.tsx"),
-    registryDependencies: ["button"],
-    dependencies: [
-      "react-markdown",
-      "react-syntax-highlighter",
-      "remark-gfm",
-      "next-themes",
-    ],
-    devDependencies: [
-      "@types/react-syntax-highlighter",
-      "@tailwindcss/typography",
-    ],
+    dependencies: ["react-markdown", "remark-gfm"],
+    devDependencies: ["@tailwindcss/typography"],
     tailwind: {
       config: {
         plugins: ['require("@tailwindcss/typography")'],
       },
     },
+  },
+  {
+    name: "code",
+    path: path.join(__dirname, "../src/components/ui/code.tsx"),
+    registryDependencies: ["button"],
+    dependencies: ["react-syntax-highlighter", "next-themes"],
+    devDependencies: ["@types/react-syntax-highlighter"],
   },
 ];
 

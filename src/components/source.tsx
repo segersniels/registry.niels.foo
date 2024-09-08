@@ -5,7 +5,8 @@ import { useState } from "react";
 
 import { LayoutSection, LayoutSectionTitle } from "@/components/layout";
 import { Button } from "@/components/ui/button";
-import { Markdown } from "@/components/ui/markdown";
+
+import Code from "./code";
 
 export default function Source({ content }: { content: string }) {
   const [isSourceCollapsed, setIsSourceCollapsed] = useState(true);
@@ -28,9 +29,9 @@ export default function Source({ content }: { content: string }) {
         </Button>
       </LayoutSectionTitle>
 
-      <Markdown className={isSourceCollapsed ? "hidden" : ""}>
-        {`\`\`\`tsx\n${content}\n\`\`\``}
-      </Markdown>
+      <Code language="tsx" className={isSourceCollapsed ? "hidden" : ""}>
+        {content}
+      </Code>
     </LayoutSection>
   );
 }

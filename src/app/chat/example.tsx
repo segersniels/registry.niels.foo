@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import Code from "@/components/code";
 import { LayoutSection } from "@/components/layout";
 import {
   Chat,
@@ -12,7 +13,6 @@ import {
   ChatMessage,
   ChatSubmit,
 } from "@/components/ui/chat";
-import { Markdown } from "@/components/ui/markdown";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Example() {
@@ -55,8 +55,8 @@ export default function Example() {
         </TabsContent>
 
         <TabsContent value="source">
-          <Markdown key={Math.random()}>
-            {`\`\`\`tsx\n<Chat className="rounded-xl border bg-card p-8 shadow">
+          <Code language="tsx">
+            {`<Chat className="rounded-xl border bg-card p-8 shadow">
   <ChatMessage align="end">
     <ChatAvatar>🙂</ChatAvatar>
     <ChatBubble>What&apos;s up? Got any plans?</ChatBubble>
@@ -78,8 +78,8 @@ export default function Example() {
     />
     <ChatSubmit disabled={!value} />
   </ChatForm>
-</Chat>\n\`\`\``}
-          </Markdown>
+</Chat>`}
+          </Code>
         </TabsContent>
       </Tabs>
     </LayoutSection>

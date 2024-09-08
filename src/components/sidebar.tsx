@@ -19,6 +19,7 @@ import { Button } from "./ui/button";
 const components = [
   { href: "/chat", label: "Chat" },
   { href: "/markdown", label: "Markdown" },
+  { href: "/code", label: "Code" },
 ];
 
 export function MobileSidebar() {
@@ -90,8 +91,11 @@ export function DesktopSidebar() {
 
       <Category>
         <CategoryTitle>Components</CategoryTitle>
-        <CategoryItem href="/chat">Chat</CategoryItem>
-        <CategoryItem href="/markdown">Markdown</CategoryItem>
+        {components.map(({ href, label }) => (
+          <CategoryItem key={label} href={href}>
+            {label}
+          </CategoryItem>
+        ))}
       </Category>
     </aside>
   );
