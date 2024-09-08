@@ -155,7 +155,7 @@ const CodeContent = React.forwardRef<HTMLDivElement, CodeContentProps>(
           codeTagProps={{
             style: {
               fontSize: "0.9rem",
-              fontFamily: "var(--font-geist-mono)",
+              fontFamily: "var(--font-mono)",
             },
           }}
         >
