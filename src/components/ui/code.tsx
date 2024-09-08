@@ -70,19 +70,19 @@ const CodeHeader = React.forwardRef<
 CodeHeader.displayName = "CodeHeader";
 
 const CodeLanguage = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+  HTMLLabelElement,
+  React.HTMLAttributes<HTMLLabelElement>
 >(({ className, children, ...props }, ref) => {
   const { language } = useCodeContent();
 
   return (
-    <p
+    <label
       ref={ref}
       className={cn("text-xs lowercase !leading-none", className)}
       {...props}
     >
       {language || children}
-    </p>
+    </label>
   );
 });
 CodeLanguage.displayName = "CodeLanguage";

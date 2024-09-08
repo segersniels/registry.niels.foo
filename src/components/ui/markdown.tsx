@@ -9,7 +9,7 @@ export function Markdown({ children, className, ...props }: MarkdownProps) {
   return (
     <ReactMarkdown
       className={cn(
-        "prose prose-neutral break-words dark:prose-invert prose-p:leading-relaxed prose-pre:overflow-visible prose-pre:bg-inherit prose-pre:p-0 prose-p:m-0",
+        "prose prose-neutral break-words dark:prose-invert prose-p:leading-relaxed prose-pre:overflow-visible prose-pre:bg-inherit prose-pre:p-0",
         className
       )}
       remarkPlugins={[remarkGfm]}
