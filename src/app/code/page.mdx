@@ -1,4 +1,19 @@
-## With Code
+import Example from "./example";
+import Source from "@/components/source";
+
+# code
+
+A basic code component that can be used to display code with syntax highlighting.
+
+<Example />
+
+## Installation
+
+```bash
+npx shadcn add "https://registry.niels.foo/code.json"
+```
+
+## With Markdown
 
 You can use the `Code` component within the `Markdown` component to
 display syntax highlighted code properly within a Markdown document.
@@ -59,3 +74,7 @@ export function Markdown({ children, className, ...props }: MarkdownProps) {
   );
 }
 ```
+
+## Source
+
+<Source component="code" />

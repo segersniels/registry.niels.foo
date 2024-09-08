@@ -1,4 +1,22 @@
-## With Markdown
+import Example from "./example";
+import Source from "@/components/source";
+
+# markdown
+
+An opinionated markdown component that can be used to display markdown
+content. It was a conscious choice to not include syntax highlighting
+for code blocks as I wanted to give users freedom to use their preferred
+syntax highlighter.
+
+<Example />
+
+## Installation
+
+```bash
+npx shadcn add "https://registry.niels.foo/markdown.json"
+```
+
+## With Code
 
 You can use the `Code` component within the `Markdown` component to
 display syntax highlighted code properly within a Markdown document.
@@ -59,3 +77,7 @@ export function Markdown({ children, className, ...props }: MarkdownProps) {
   );
 }
 ```
+
+## Source
+
+<Source component="markdown" />

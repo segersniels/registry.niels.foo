@@ -1,37 +1,16 @@
 "use client";
 
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { LayoutSection, LayoutSectionTitle } from "@/components/layout";
-import { Button } from "@/components/ui/button";
+import { getSchema } from "@/app/actions";
+import Code from "@/components/code";
 
-import Code from "./code";
+export default function Source({ component }: { component: string }) {
+  const [source, setSource] = useState("");
 
-export default function Source({ content }: { content: string }) {
-  const [isSourceCollapsed, setIsSourceCollapsed] = useState(true);
+  useEffect(() => {
+    getSchema(component).then((schema) => setSource(schema.files[0].content));
+  }, [component]);
 
-  return (
-    <LayoutSection>
-      <LayoutSectionTitle className="flex items-center">
-        <span>Source</span>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="hover:bg-transparent"
-          onClick={() => setIsSourceCollapsed(!isSourceCollapsed)}
-        >
-          {isSourceCollapsed ? (
-            <ChevronDownIcon className="h-4 w-4" />
-          ) : (
-            <ChevronUpIcon className="h-4 w-4" />
-          )}
-        </Button>
-      </LayoutSectionTitle>
-
-      <Code language="tsx" className={isSourceCollapsed ? "hidden" : ""}>
-        {content}
-      </Code>
-    </LayoutSection>
-  );
+  return <Code language="tsx">{source}</Code>;
 }

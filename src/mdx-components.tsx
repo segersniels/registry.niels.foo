@@ -36,7 +36,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       const language = match[1];
 
       return (
-        <Code language={language} {...rest}>
+        <Code
+          language={language}
+          showLineNumbers={!["bash", "shell"].includes(language)}
+          {...rest}
+        >
           {code}
         </Code>
       );

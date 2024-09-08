@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import Code from "@/components/code";
-import { LayoutSection } from "@/components/layout";
 import {
   Chat,
   ChatAvatar,
@@ -19,44 +18,43 @@ export default function Example() {
   const [value, setValue] = useState("");
 
   return (
-    <LayoutSection>
-      <Tabs defaultValue="example">
-        <TabsList>
-          <TabsTrigger value="example">Example</TabsTrigger>
-          <TabsTrigger value="source">Source</TabsTrigger>
-        </TabsList>
+    <Tabs defaultValue="example">
+      <TabsList>
+        <TabsTrigger value="example">Example</TabsTrigger>
+        <TabsTrigger value="source">Source</TabsTrigger>
+      </TabsList>
 
-        <TabsContent value="example">
-          <Chat className="rounded-lg border bg-card p-8 shadow">
-            <ChatMessage align="end">
-              <ChatAvatar>🙂</ChatAvatar>
-              <ChatBubble>What&apos;s up? Got any plans?</ChatBubble>
-            </ChatMessage>
+      <TabsContent value="example">
+        <Chat className="rounded-lg border bg-card p-8 shadow">
+          <ChatMessage align="end">
+            <ChatAvatar>🙂</ChatAvatar>
+            <ChatBubble>What&apos;s up? Got any plans?</ChatBubble>
+          </ChatMessage>
 
-            <ChatMessage align="start">
-              <ChatAvatar>🙃</ChatAvatar>
-              <ChatBubble>Got nothing special going on, you?</ChatBubble>
-            </ChatMessage>
+          <ChatMessage align="start">
+            <ChatAvatar>🙃</ChatAvatar>
+            <ChatBubble>Got nothing special going on, you?</ChatBubble>
+          </ChatMessage>
 
-            <ChatForm
-              onSubmit={(e) => {
-                e.preventDefault();
-                setValue("");
-              }}
-            >
-              <ChatInput
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                placeholder="Type a message..."
-              />
-              <ChatSubmit disabled={!value} />
-            </ChatForm>
-          </Chat>
-        </TabsContent>
+          <ChatForm
+            onSubmit={(e) => {
+              e.preventDefault();
+              setValue("");
+            }}
+          >
+            <ChatInput
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              placeholder="Type a message..."
+            />
+            <ChatSubmit disabled={!value} />
+          </ChatForm>
+        </Chat>
+      </TabsContent>
 
-        <TabsContent value="source">
-          <Code language="tsx">
-            {`<Chat className="rounded-xl border bg-card p-8 shadow">
+      <TabsContent value="source">
+        <Code language="tsx">
+          {`<Chat className="rounded-xl border bg-card p-8 shadow">
   <ChatMessage align="end">
     <ChatAvatar>🙂</ChatAvatar>
     <ChatBubble>What&apos;s up? Got any plans?</ChatBubble>
@@ -79,9 +77,8 @@ export default function Example() {
     <ChatSubmit disabled={!value} />
   </ChatForm>
 </Chat>`}
-          </Code>
-        </TabsContent>
-      </Tabs>
-    </LayoutSection>
+        </Code>
+      </TabsContent>
+    </Tabs>
   );
 }

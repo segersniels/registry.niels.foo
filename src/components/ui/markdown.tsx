@@ -37,7 +37,6 @@ export function Markdown({ children, className, ...props }: MarkdownProps) {
           //       <CodeLanguage />
           //       <CodeCopyButton />
           //     </CodeHeader>
-
           //     <CodeContent showLineNumbers>
           //       {code}
           //     </CodeContent>

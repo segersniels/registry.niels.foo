@@ -42,7 +42,7 @@ export default function RootLayout({
           <Header />
           <div className="flex justify-center">
             <DesktopSidebar />
-            <main className="flex w-full flex-col items-center p-8 sm:w-[720px]">
+            <main className="flex w-full flex-col space-y-4 p-8 sm:w-[720px]">
               {children}
             </main>
           </div>
