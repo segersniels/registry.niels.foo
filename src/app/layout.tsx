@@ -1,22 +1,12 @@
 import "./globals.css";
 
+import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 
 import Header from "@/components/header";
 import { DesktopSidebar } from "@/components/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 
 export const metadata: Metadata = {
   title: "Registry",
@@ -31,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-background antialiased min-h-screen`}
+        className={`${GeistSans.variable} ${GeistMono.variable} font-sans bg-background antialiased min-h-screen`}
       >
         <ThemeProvider
           attribute="class"
