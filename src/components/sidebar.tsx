@@ -34,13 +34,17 @@ export function MobileSidebar() {
         <DropdownMenuLabel>General</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/">Introduction</Link>
+          <Link href="/" className="w-full">
+            Introduction
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuLabel>Components</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {components.map(({ href, label }) => (
           <DropdownMenuItem key={href}>
-            <Link href={href}>{label}</Link>
+            <Link href={href} className="w-full">
+              {label}
+            </Link>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
