@@ -16,7 +16,7 @@ interface CodeContentContextState {
 }
 
 const CodeContentContext = React.createContext<CodeContentContextState>({
-  language: "typescript",
+  language: "bash",
   content: "",
   setContent: () => {},
 });
