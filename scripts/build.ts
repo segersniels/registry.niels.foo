@@ -3,7 +3,7 @@ import path from "path";
 
 export interface Schema {
   name: string;
-  type: "registry:ui";
+  type: "registry:ui" | "registry:hook";
   registryDependencies: string[];
   dependencies: string[];
   devDependencies: string[];
@@ -17,23 +17,25 @@ export interface Schema {
   files: Array<{
     path: string;
     content: string;
-    type: "registry:ui";
+    type: "registry:ui" | "registry:hook";
   }>;
 }
 
-type ComponentDefinition = Partial<
-  Pick<
-    Schema,
-    | "dependencies"
-    | "devDependencies"
-    | "registryDependencies"
-    | "cssVars"
-    | "tailwind"
-  >
-> & {
-  name: string;
-  path: string;
-};
+type ComponentDefinition = Pick<Schema, "name"> &
+  Partial<
+    Pick<
+      Schema,
+      | "type"
+      | "dependencies"
+      | "devDependencies"
+      | "registryDependencies"
+      | "cssVars"
+      | "tailwind"
+    >
+  > & {
+    name: string;
+    path: string;
+  };
 
 // Define the components and their dependencies that should be registered
 const components: ComponentDefinition[] = [
@@ -85,6 +87,12 @@ const components: ComponentDefinition[] = [
     dependencies: ["react-syntax-highlighter", "next-themes"],
     devDependencies: ["@types/react-syntax-highlighter"],
   },
+  {
+    name: "use-local-forage",
+    type: "registry:hook",
+    path: path.join(__dirname, "../src/hooks/use-local-forage.ts"),
+    dependencies: ["localforage"],
+  },
 ];
 
 // Create the registry directory if it doesn't exist
@@ -99,7 +107,7 @@ for (const component of components) {
 
   const schema = {
     name: component.name,
-    type: "registry:ui",
+    type: component.type || "registry:ui",
     registryDependencies: component.registryDependencies || [],
     dependencies: component.dependencies || [],
     devDependencies: component.devDependencies || [],
@@ -112,7 +120,7 @@ for (const component of components) {
       {
         path: `${component.name}.tsx`,
         content,
-        type: "registry:ui",
+        type: component.type || "registry:ui",
       },
     ],
   } satisfies Schema;

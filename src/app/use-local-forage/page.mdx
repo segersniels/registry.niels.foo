@@ -1,0 +1,31 @@
+import Source from "@/components/source";
+
+# use-local-forage
+
+A `useState` like hook that persists its value through [`localForage`](https://github.com/localForage/localForage) in either
+local storage or indexedDB.
+
+It has a built in event listener that will ensure the value is updated in the DOM when the value changes.
+So no need to worry about using shared contexts. Update the value in one place, update it anywhere.
+
+## Usage
+
+```tsx
+import useLocalForage from "@/hooks/use-local-forage";
+
+export default function Example() {
+  const [value, setValue] = useLocalForage("key", "value");
+
+  return <div>{value}</div>;
+}
+```
+
+## Installation
+
+```bash
+npx shadcn add "https://registry.niels.foo/use-local-forage.json"
+```
+
+## Source
+
+<Source name="use-local-forage" />

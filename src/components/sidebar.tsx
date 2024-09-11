@@ -22,6 +22,8 @@ const components = [
   { href: "/code", label: "Code" },
 ];
 
+const hooks = [{ href: "/use-local-forage", label: "useLocalForage" }];
+
 export function MobileSidebar() {
   return (
     <DropdownMenu>
@@ -96,6 +98,15 @@ export function DesktopSidebar() {
       <Category>
         <CategoryTitle>Components</CategoryTitle>
         {components.map(({ href, label }) => (
+          <CategoryItem key={label} href={href}>
+            {label}
+          </CategoryItem>
+        ))}
+      </Category>
+
+      <Category>
+        <CategoryTitle>Hooks</CategoryTitle>
+        {hooks.map(({ href, label }) => (
           <CategoryItem key={label} href={href}>
             {label}
           </CategoryItem>
