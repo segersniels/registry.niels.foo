@@ -45,6 +45,11 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </Code>
       );
     },
+    ul: ({ children }) => (
+      <ul className="list-disc pl-4 prose prose-neutral dark:prose-invert">
+        {children}
+      </ul>
+    ),
     ...components,
   };
 }
