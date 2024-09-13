@@ -13,7 +13,7 @@ export default function Code({
   showLineNumbers,
 }: {
   className?: string;
-  language: string;
+  language?: string;
   children: string;
   showLineNumbers?: boolean;
 }) {

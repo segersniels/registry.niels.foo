@@ -28,7 +28,7 @@ function useCodeContent() {
 const Code = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & { language?: string }
->(({ className, language = "typescript", children, ...props }, ref) => {
+>(({ className, language = "bash", children, ...props }, ref) => {
   const [content, setContent] = React.useState("");
 
   return (

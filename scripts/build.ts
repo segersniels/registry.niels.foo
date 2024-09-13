@@ -93,6 +93,11 @@ const components: ComponentDefinition[] = [
     path: path.join(__dirname, "../src/hooks/use-local-forage.ts"),
     dependencies: ["localforage"],
   },
+  {
+    name: "use-server-action",
+    type: "registry:hook",
+    path: path.join(__dirname, "../src/hooks/use-server-action.ts"),
+  },
 ];
 
 // Create the registry directory if it doesn't exist

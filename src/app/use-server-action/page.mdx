@@ -1,0 +1,53 @@
+import Source from "@/components/source";
+
+# use-server-action
+
+The `useServerAction` hook simplifies server action calls in Next.js client components. It manages loading, error, and data states, automatically executes on mount, and provides a `refresh` function.
+This hook reduces boilerplate, improves code organization, and is especially useful in Next.js applications with the App Router, streamlining server-client integration.
+
+## Usage
+
+```tsx
+"use client";
+
+import { useEffect } from "react";
+
+import { getSchema } from "@/app/actions";
+import Code from "@/components/code";
+import useServerAction from "@/hooks/use-server-action";
+
+export default function Example() {
+  const { data, refresh, error, isLoading } = useServerAction(() =>
+    getSchema("chat")
+  );
+
+  useEffect(() => {
+    const intervalId = setInterval(refresh, 10_000);
+    return () => clearInterval(intervalId);
+  }, [refresh]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <Code>{error.message}</Code>;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  return <Code language="tsx">{data.files[0].content}</Code>;
+}
+```
+
+## Installation
+
+```bash
+npx shadcn add "https://registry.niels.foo/use-server-action.json"
+```
+
+## Source
+
+<Source name="use-server-action" />

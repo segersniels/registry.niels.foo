@@ -22,7 +22,10 @@ const components = [
   { href: "/code", label: "Code" },
 ];
 
-const hooks = [{ href: "/use-local-forage", label: "useLocalForage" }];
+const hooks = [
+  { href: "/use-local-forage", label: "useLocalForage" },
+  { href: "/use-server-action", label: "useServerAction" },
+];
 
 export function MobileSidebar() {
   return (
