@@ -5,6 +5,31 @@ localForage.config({
   name: "foo",
 });
 
+/**
+ * A custom hook that provides persistent state management using localForage.
+ *
+ * This hook allows you to store and retrieve data in the browser's local storage or IndexedDB,
+ * providing a persistent state that survives page reloads and browser restarts.
+ *
+ * ```tsx
+ * import useLocalForage from "@/hooks/use-local-forage";
+ *
+ * export default function Example() {
+ *   const [value, setValue, isInitialized] = useLocalForage("myKey", "initialValue");
+ *
+ *   if (!isInitialized) {
+ *     return <div>Loading...</div>;
+ *   }
+ *
+ *   return (
+ *     <div>
+ *       <p>Current value: {value}</p>
+ *       <button onClick={() => setValue("New value")}>Update value</button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 export default function useLocalForage<T>(
   key: string,
   initialValue: T
