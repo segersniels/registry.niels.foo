@@ -10,7 +10,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Registry",
-  description: "An opinionated shadcn/ui component library",
+  description: "An opinionated shadcn/ui collection of components and hooks",
 };
 
 export default function RootLayout({

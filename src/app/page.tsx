@@ -18,9 +18,8 @@ export default function Introduction() {
       <LayoutContent>
         <LayoutDescription>
           Welcome to my opinionated collection of shadcn/ui inspired components
-          with custom styling and enhanced functionality. This library is
-          designed to streamline your development process and maintain
-          consistency across your projects.
+          and hooks. This collection is designed to streamline your development
+          process and maintain consistency across your projects.
         </LayoutDescription>
 
         <LayoutSection>
@@ -46,6 +45,7 @@ export default function Introduction() {
           <LayoutSectionTitle>Key Features</LayoutSectionTitle>
           <ul className="list-disc list-inside space-y-1">
             <li>Customized shadcn/ui components</li>
+            <li>Helpful hooks</li>
             <li>TypeScript-first approach</li>
             <li>Responsive design with Tailwind CSS</li>
           </ul>
@@ -54,7 +54,7 @@ export default function Introduction() {
         <LayoutSection>
           <LayoutSectionTitle>Getting Started</LayoutSectionTitle>
           <p>
-            Explore the component library to see examples and usage
+            Explore the components and hooks to see examples and usage
             instructions. Each component is designed to be easily integrated
             into your Next.js projects.
           </p>
