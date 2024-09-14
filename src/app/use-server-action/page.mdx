@@ -36,7 +36,7 @@ export default function Example() {
   const [shouldFetch, setShouldFetch] = useState(false);
   const { data, error, isLoading, refresh } = useServerAction(
     async () => {
-      return `Hello ${getRandomName()}`;
+      return `Hello ${getRandomName()}!`;
     },
     { shouldFetch, initialData: "Hello World!" }
   );
