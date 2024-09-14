@@ -16,13 +16,17 @@ import useServerActionSWR from "@/hooks/use-server-action-swr";
 
 export default function Example({ id }: { id: string }) {
   // Serve stale data while revalidating in the background
-  const { data, error, isLoading } = useServerActionSWR(
+  const { data, error, isInitialized, isValidating } = useServerActionSWR(
     async () => serverAction(id),
     [id]
   );
 
-  if (isLoading) {
+  if (!isInitialized) {
     return <div>Loading...</div>;
+  }
+
+  if (isValidating) {
+    // Handle data revalidation state
   }
 
   if (error) {

@@ -81,9 +81,9 @@ async function clearPreviousCacheEntries<T>(action: Action<T>) {
  * use `useServerAction` instead since this is a work in progress and may cause excessive re-renders.
  *
  * ```tsx
- * const { data, error, isLoading, refresh } = useServerAction(serverAction);
+ * const { data, error, isInitialized, isValidating, refresh } = useServerActionSWR(serverAction);
  *
- * if (isLoading) return <div>Loading...</div>;
+ * if (!isInitialized) return <div>Loading...</div>;
  * if (error) return <div>Error: {error.message}</div>;
  * if (!data) return null;
  *
