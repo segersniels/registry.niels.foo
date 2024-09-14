@@ -25,6 +25,21 @@ type CachedValue<T> = {
   deps: DependencyList;
 };
 
+interface UseServerActionSWRResponse<T> {
+  data: T | null;
+  error: Error | null;
+  /**
+   * Will be `true` when either the cached data has been fetched or the initial
+   * data has finished fetching.
+   */
+  isInitialized: boolean;
+  /**
+   * Will be `true` if new data is currently being fetched.
+   */
+  isValidating: boolean;
+  refresh: () => Promise<void>;
+}
+
 /**
  * Generates a unique cache key prefix for the given action.
  */
@@ -78,16 +93,17 @@ async function clearPreviousCacheEntries<T>(action: Action<T>) {
 export default function useServerActionSWR<T>(
   action: Action<T>,
   deps: DependencyList = []
-) {
+): UseServerActionSWRResponse<T> {
   const [value, setValue] = useState<T | null>(null);
   const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const cacheKey = useMemo(() => generateCacheKey(action, deps), deps);
   const memoizedAction = useCallback(action, deps);
 
   const refresh = useCallback(async () => {
-    setIsLoading(true);
+    setIsValidating(true);
     setError(null);
 
     try {
@@ -99,7 +115,7 @@ export default function useServerActionSWR<T>(
     } catch (error) {
       setError(error as Error);
     } finally {
-      setIsLoading(false);
+      setIsValidating(false);
     }
   }, [memoizedAction, cacheKey, deps, action]);
 
@@ -110,15 +126,30 @@ export default function useServerActionSWR<T>(
         setValue(cachedValue.data);
       }
 
-      // Fetch the latest data from the server after trying to load from cache
-      refresh();
+      /**
+       * Start fetching the latest data and mark as initialized to clarify that we
+       * have finished fetching the initial data.
+       */
+      refresh().finally(() => setIsInitialized(true));
     });
   }, []);
+
+  /**
+   * Mark as initialized as soon as we can show data
+   */
+  useEffect(() => {
+    if (!value || isInitialized) {
+      return;
+    }
+
+    setIsInitialized(true);
+  }, [value, isInitialized]);
 
   return {
     data: value,
     error,
-    isLoading,
+    isInitialized,
+    isValidating,
     refresh,
   };
 }
