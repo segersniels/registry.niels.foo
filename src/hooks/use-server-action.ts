@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import { useCallback, useEffect, useState } from "react";
 
-type Action<T> = (...args: any[]) => Promise<T>;
+type Action<T> = (...args: never[]) => Promise<T>;
+
+interface UseServerActionOptions<T> {
+  shouldFetch?: boolean;
+  initialData?: T;
+}
 
 /**
  * A custom hook for managing server actions in Next.js client components.
@@ -22,12 +24,19 @@ type Action<T> = (...args: any[]) => Promise<T>;
  * return <div>{JSON.stringify(data)}</div>;
  * ```
  */
-export default function useServerAction<T>(action: Action<T>) {
-  const [value, setValue] = useState<T | null>(null);
+export default function useServerAction<T>(
+  action: Action<T>,
+  { shouldFetch = true, initialData }: UseServerActionOptions<T> = {}
+) {
+  const [value, setValue] = useState<T | null>(initialData ?? null);
   const [error, setError] = useState<Error | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const refresh = useCallback(() => {
+    if (!shouldFetch) {
+      return;
+    }
+
     setIsLoading(true);
     action()
       .then((data) => setValue(data))
@@ -36,14 +45,19 @@ export default function useServerAction<T>(action: Action<T>) {
         setValue(null);
       })
       .finally(() => setIsLoading(false));
-  }, [action]);
+  }, [action, shouldFetch]);
 
   /**
-   * Refresh the action data on mount
+   * Refresh the action data on mount or when `shouldFetch` changes
    */
   useEffect(() => {
+    if (!shouldFetch) {
+      return;
+    }
+
     refresh();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldFetch]);
 
   return {
     data: value,

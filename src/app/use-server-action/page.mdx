@@ -10,35 +10,64 @@ This hook reduces boilerplate, improves code organization, and is especially use
 ```tsx
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { getSchema } from "@/app/actions";
-import Code from "@/components/code";
 import useServerAction from "@/hooks/use-server-action";
 
+function getRandomName() {
+  const names = [
+    "Alice",
+    "Bob",
+    "Charlie",
+    "David",
+    "Emma",
+    "Frank",
+    "Grace",
+    "Henry",
+    "Isabel",
+    "Jack",
+  ];
+
+  const randomIndex = Math.floor(Math.random() * names.length);
+  return names[randomIndex];
+}
+
 export default function Example() {
-  const { data, refresh, error, isLoading } = useServerAction(() =>
-    getSchema("chat")
+  const [shouldFetch, setShouldFetch] = useState(false);
+  const { data, error, isLoading, refresh } = useServerAction(
+    async () => {
+      return `Hello ${getRandomName()}`;
+    },
+    { shouldFetch, initialData: "Hello World!" }
   );
 
+  // Refresh the data every second
   useEffect(() => {
-    const intervalId = setInterval(refresh, 10_000);
-    return () => clearInterval(intervalId);
+    const interval = setInterval(() => {
+      refresh();
+    }, 1000);
+
+    return () => clearInterval(interval);
   }, [refresh]);
+
+  // Conditionally control whether to start fetching the data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldFetch(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   if (error) {
-    return <Code>{error.message}</Code>;
+    return <div>Error: {error.message}</div>;
   }
 
-  if (!data) {
-    return null;
-  }
-
-  return <Code language="tsx">{data.files[0].content}</Code>;
+  return <div>{data}</div>;
 }
 ```
 
