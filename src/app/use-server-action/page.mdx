@@ -2,8 +2,10 @@ import Source from "@/components/source";
 
 # useServerAction
 
-The `useServerAction` hook simplifies server action calls in Next.js client components. It manages loading, error, and data states, automatically executes on mount, and provides a `refresh` function.
-This hook reduces boilerplate, improves code organization, and is especially useful in Next.js applications with the App Router, streamlining server-client integration.
+The `useServerAction` hook simplifies server action management in Next.js client components.
+It uses SWR for efficient data fetching, offers conditional execution, and provides easy access
+to loading states, errors, and data. This TypeScript-friendly hook streamlines the process of
+integrating server actions into React components with minimal boilerplate.
 
 ## Usage
 
@@ -14,41 +16,24 @@ import { useEffect, useState } from "react";
 
 import useServerAction from "@/hooks/use-server-action";
 
-function getRandomName() {
-  const names = [
-    "Alice",
-    "Bob",
-    "Charlie",
-    "David",
-    "Emma",
-    "Frank",
-    "Grace",
-    "Henry",
-    "Isabel",
-    "Jack",
-  ];
-
-  const randomIndex = Math.floor(Math.random() * names.length);
-  return names[randomIndex];
-}
-
-export default function Example() {
+export default function Example({ name }: { name: string }) {
   const [shouldFetch, setShouldFetch] = useState(false);
-  const { data, error, isLoading, refresh } = useServerAction(
+  const { data, error, isLoading, mutate } = useServerAction(
     async () => {
-      return `Hello ${getRandomName()}!`;
+      return `Hello ${name}!`;
     },
-    { shouldFetch, initialData: "Hello World!" }
+    [name],
+    { shouldFetch }
   );
 
   // Refresh the data every second
   useEffect(() => {
     const interval = setInterval(() => {
-      refresh();
+      mutate();
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [refresh]);
+  }, [mutate]);
 
   // Conditionally control whether to start fetching the data
   useEffect(() => {

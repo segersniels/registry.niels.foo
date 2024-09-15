@@ -1,21 +1,25 @@
-import { useCallback, useEffect, useState } from "react";
+"use client";
 
-type Action<T> = (...args: never[]) => Promise<T>;
+import { DependencyList } from "react";
+import useSWR, { SWRConfiguration } from "swr";
 
-interface UseServerActionOptions<T> {
+type Action<T> = () => Promise<T>;
+
+interface UseServerActionSWROptions extends SWRConfiguration {
   shouldFetch?: boolean;
-  initialData?: T;
+}
+
+function generateKey<T>(action: Action<T>, deps: DependencyList = []) {
+  return `${action.name || action.toString()}?${deps.join("&")}`;
 }
 
 /**
- * A custom hook for managing server actions in Next.js client components.
+ * A hook for managing server actions in Next.js client components using SWR.
  *
- * This hook simplifies the process of calling server actions, handling loading states,
- * errors, and data management. It automatically executes the action on mount and
- * provides a refresh function for manual re-execution.
+ * @see https://swr.vercel.app/ for more documentation about configuration options
  *
  * ```tsx
- * const { data, error, isLoading, refresh } = useServerAction(serverAction);
+ * const { data, error, isLoading, mutate } = useServerAction(() => action(id), [id], { shouldFetch: true });
  *
  * if (isLoading) return <div>Loading...</div>;
  * if (error) return <div>Error: {error.message}</div>;
@@ -26,43 +30,12 @@ interface UseServerActionOptions<T> {
  */
 export default function useServerAction<T>(
   action: Action<T>,
-  { shouldFetch = true, initialData }: UseServerActionOptions<T> = {}
+  deps: DependencyList = [],
+  options: UseServerActionSWROptions = {}
 ) {
-  const [value, setValue] = useState<T | null>(initialData ?? null);
-  const [error, setError] = useState<Error | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { shouldFetch = true, ...rest } = options;
 
-  const refresh = useCallback(() => {
-    if (!shouldFetch) {
-      return;
-    }
-
-    setIsLoading(true);
-    action()
-      .then((data) => setValue(data))
-      .catch((error) => {
-        setError(error);
-        setValue(null);
-      })
-      .finally(() => setIsLoading(false));
-  }, [action, shouldFetch]);
-
-  /**
-   * Refresh the action data on mount or when `shouldFetch` changes
-   */
-  useEffect(() => {
-    if (!shouldFetch) {
-      return;
-    }
-
-    refresh();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shouldFetch]);
-
-  return {
-    data: value,
-    error,
-    isLoading,
-    refresh,
-  };
+  return useSWR(shouldFetch ? generateKey(action, deps) : null, action, {
+    ...rest,
+  });
 }

@@ -97,12 +97,7 @@ const components: ComponentDefinition[] = [
     name: "use-server-action",
     type: "registry:hook",
     path: path.join(__dirname, "../src/hooks/use-server-action.ts"),
-  },
-  {
-    name: "use-server-action-swr",
-    type: "registry:hook",
-    path: path.join(__dirname, "../src/hooks/use-server-action-swr.ts"),
-    dependencies: ["localforage"],
+    dependencies: ["swr"],
   },
 ];
 

@@ -25,7 +25,6 @@ const components = [
 const hooks = [
   { href: "/use-local-forage", label: "useLocalForage" },
   { href: "/use-server-action", label: "useServerAction" },
-  { href: "/use-server-action-swr", label: "useServerActionSWR" },
 ];
 
 export function MobileSidebar() {
