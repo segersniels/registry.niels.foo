@@ -62,6 +62,30 @@ export default function Example({ name }: { name: string }) {
 npx shadcn add "https://registry.niels.foo/use-server-action.json"
 ```
 
+## With Persistence
+
+By default, `useServerAction` operates purely in memory, and the cache is cleared
+when the tab is closed. To enable persistence across sessions, set the `persist` option to `true`.
+
+When persistence is enabled, it modifies the behavior of SWR's `isLoading` state:
+
+1. Initially, `isLoading` is set to `true`.
+2. If cached data is available, `isLoading` is immediately set to `false`.
+3. During the actual fetch, `isLoading` remains `false`. You should look at `isValidating` instead anyway.
+
+This differs from SWR's default behavior, where `isLoading` only becomes `false`
+after the fetch is completed, regardless of cached data availability.
+
+```tsx
+const { data, isLoading } = useServerAction(
+  async () => {
+    return `Hello ${name}!`;
+  },
+  [name],
+  { persist: true }
+);
+```
+
 ## Source
 
 <Source name="use-server-action" />

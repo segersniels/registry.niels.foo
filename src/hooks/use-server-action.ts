@@ -1,12 +1,20 @@
 "use client";
 
-import { DependencyList } from "react";
-import useSWR, { SWRConfiguration } from "swr";
+import { DependencyList, useEffect, useState } from "react";
+import useSWR, { SWRConfiguration, useSWRConfig } from "swr";
 
 type Action<T> = () => Promise<T>;
 
 interface UseServerActionSWROptions extends SWRConfiguration {
+  /**
+   * Conditionally control when to execute the server action.
+   */
   shouldFetch?: boolean;
+  /**
+   * By default `useSWR` is purely in memory and caching is cleared
+   * when closing the tab. Use `localStorage` to persist data across sessions.
+   */
+  persist?: boolean;
 }
 
 function generateKey<T>(action: Action<T>, deps: DependencyList = []) {
@@ -33,9 +41,64 @@ export default function useServerAction<T>(
   deps: DependencyList = [],
   options: UseServerActionSWROptions = {}
 ) {
-  const { shouldFetch = true, ...rest } = options;
+  const key = generateKey(action, deps);
+  const {
+    shouldFetch = true,
+    onSuccess,
+    onError,
+    persist = false,
+    ...rest
+  } = options;
 
-  return useSWR(shouldFetch ? generateKey(action, deps) : null, action, {
+  const { mutate } = useSWRConfig();
+  const [isPersistedLoading, setIsPersistedLoading] = useState(true);
+
+  /**
+   * Sync fallback data with what we have persisted in localStorage
+   */
+  useEffect(() => {
+    if (!persist) {
+      return;
+    }
+
+    const data = localStorage.getItem(key);
+    if (data) {
+      mutate(key, JSON.parse(data), {
+        revalidate: false,
+      });
+
+      /**
+       * The default `isLoading` state of SWR only considers the
+       * initial data fetching state. We need to manually set the
+       * loading state to false once we have loaded in the persisted
+       * data.
+       */
+      setIsPersistedLoading(false);
+    }
+  }, []);
+
+  const response = useSWR(shouldFetch ? key : null, action, {
     ...rest,
+    onSuccess: (data, key, config) => {
+      if (persist) {
+        localStorage.setItem(key, JSON.stringify(data));
+      }
+      onSuccess?.(data, key, config);
+    },
+    onError: (err, key, config) => {
+      if (persist) {
+        localStorage.removeItem(key);
+      }
+      onError?.(err, key, config);
+    },
   });
+
+  return {
+    ...response,
+    ...(persist
+      ? {
+          isLoading: isPersistedLoading,
+        }
+      : {}),
+  };
 }
