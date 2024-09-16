@@ -11,6 +11,10 @@ interface UseServerActionSWROptions extends SWRConfiguration {
    */
   shouldFetch?: boolean;
   /**
+   * Conditionally control whether to continue or stop refreshing the server action.
+   */
+  shouldRefresh?: boolean;
+  /**
    * By default `useSWR` is purely in memory and caching is cleared
    * when closing the tab. Use `localStorage` to persist data across sessions.
    */
@@ -44,6 +48,7 @@ export default function useServerAction<T>(
   const key = generateKey(action, deps);
   const {
     shouldFetch = true,
+    shouldRefresh = !!options.refreshInterval,
     onSuccess,
     onError,
     persist = false,
@@ -79,6 +84,7 @@ export default function useServerAction<T>(
 
   const response = useSWR(shouldFetch ? key : null, action, {
     ...rest,
+    refreshInterval: shouldRefresh ? options.refreshInterval : undefined,
     onSuccess: (data, key, config) => {
       if (persist) {
         localStorage.setItem(key, JSON.stringify(data));
