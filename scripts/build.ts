@@ -99,6 +99,21 @@ const components: ComponentDefinition[] = [
     path: path.join(__dirname, "../src/hooks/use-server-action.ts"),
     dependencies: ["swr"],
   },
+  {
+    name: "use-typewriter",
+    type: "registry:hook",
+    path: path.join(__dirname, "../src/hooks/use-typewriter.ts"),
+  },
+  {
+    name: "use-enter-submit",
+    type: "registry:hook",
+    path: path.join(__dirname, "../src/hooks/use-enter-submit.ts"),
+  },
+  {
+    name: "use-copy-to-clipboard",
+    type: "registry:hook",
+    path: path.join(__dirname, "../src/hooks/use-copy-to-clipboard.ts"),
+  },
 ];
 
 // Create the registry directory if it doesn't exist

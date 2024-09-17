@@ -1,0 +1,27 @@
+import Source from "@/components/source";
+
+# useEnterSubmit
+
+A hook that simplifies form submission on enter key press.
+
+## Usage
+
+```tsx
+import useEnterSubmit from "@/hooks/use-enter-submit";
+
+export default function Example() {
+  const { formRef, onKeyDown } = useEnterSubmit();
+
+  return <form ref={formRef} onKeyDown={onKeyDown}></form>;
+}
+```
+
+## Installation
+
+```bash
+npx shadcn add "https://registry.niels.foo/use-enter-submit.json"
+```
+
+## Source
+
+<Source name="use-enter-submit" />

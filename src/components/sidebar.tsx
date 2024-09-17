@@ -25,6 +25,8 @@ const components = [
 const hooks = [
   { href: "/use-local-forage", label: "useLocalForage" },
   { href: "/use-server-action", label: "useServerAction" },
+  { href: "/use-typewriter", label: "useTypewriter" },
+  { href: "/use-enter-submit", label: "useEnterSubmit" },
 ];
 
 export function MobileSidebar() {
