@@ -5,13 +5,13 @@ import useSWR, { SWRConfiguration, useSWRConfig } from "swr";
 
 type Action<T> = () => Promise<T>;
 
-interface UseServerActionSWROptions extends SWRConfiguration {
+interface UseServerActionSWROptions<T> extends SWRConfiguration<T> {
   /**
    * Conditionally control when to execute the server action.
    */
   shouldFetch?: boolean;
   /**
-   * Conditionally control whether to continue or stop refreshing the server action.
+   * Conditionally control whether to refresh the server action.
    */
   shouldRefresh?: boolean;
   /**
@@ -25,13 +25,26 @@ function generateKey<T>(action: Action<T>, deps: DependencyList = []) {
   return `${action.name || action.toString()}?${deps.join("&")}`;
 }
 
+type UseServerActionResponse<T> = ReturnType<typeof useSWR<T>>;
+
+export default function useServerAction<T>(
+  action: Action<T>,
+  deps: DependencyList
+): UseServerActionResponse<T>;
+
+export default function useServerAction<T>(
+  action: Action<T>,
+  options: UseServerActionSWROptions<T>,
+  deps: DependencyList
+): UseServerActionResponse<T>;
+
 /**
  * A hook for managing server actions in Next.js client components using SWR.
  *
  * @see https://swr.vercel.app/ for more documentation about configuration options
  *
  * ```tsx
- * const { data, error, isLoading, mutate } = useServerAction(() => action(id), [id], { shouldFetch: true });
+ * const { data, error, isLoading, mutate } = useServerAction(() => action(id), { shouldFetch: true }, [id]);
  *
  * if (isLoading) return <div>Loading...</div>;
  * if (error) return <div>Error: {error.message}</div>;
@@ -42,9 +55,19 @@ function generateKey<T>(action: Action<T>, deps: DependencyList = []) {
  */
 export default function useServerAction<T>(
   action: Action<T>,
-  deps: DependencyList = [],
-  options: UseServerActionSWROptions = {}
+  optionsOrDeps?: UseServerActionSWROptions<T> | DependencyList,
+  optionalDeps: DependencyList = []
 ) {
+  let options: UseServerActionSWROptions<T> = {},
+    deps = optionalDeps;
+
+  if (!Array.isArray(optionsOrDeps)) {
+    options = optionsOrDeps as UseServerActionSWROptions<T>;
+    deps = optionalDeps;
+  } else {
+    deps = optionsOrDeps;
+  }
+
   const key = generateKey(action, deps);
   const {
     shouldFetch = true,
@@ -80,6 +103,7 @@ export default function useServerAction<T>(
        */
       setIsPersistedLoading(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const response = useSWR(shouldFetch ? key : null, action, {
