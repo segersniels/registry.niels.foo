@@ -3,6 +3,7 @@
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Fragment } from "react";
 
 import {
   DropdownMenu,
@@ -15,6 +16,11 @@ import {
 import { cn } from "@/lib/utils";
 
 import { Button } from "./ui/button";
+
+interface Link {
+  href: string;
+  label: string;
+}
 
 const components = [
   { href: "/chat", label: "Chat" },
@@ -29,6 +35,22 @@ const hooks = [
   { href: "/use-enter-submit", label: "useEnterSubmit" },
 ];
 
+function MobileSidebarSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Fragment>
+      <DropdownMenuSeparator />
+      <DropdownMenuLabel>{title}</DropdownMenuLabel>
+      {children}
+    </Fragment>
+  );
+}
+
 export function MobileSidebar() {
   return (
     <DropdownMenu>
@@ -38,22 +60,33 @@ export function MobileSidebar() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>General</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href="/" className="w-full">
-            Introduction
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuLabel>Components</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {components.map(({ href, label }) => (
-          <DropdownMenuItem key={href}>
-            <Link href={href} className="w-full">
-              {label}
+        <MobileSidebarSection title="General">
+          <DropdownMenuItem>
+            <Link href="/" className="w-full">
+              Introduction
             </Link>
           </DropdownMenuItem>
-        ))}
+        </MobileSidebarSection>
+
+        <MobileSidebarSection title="Components">
+          {components.map(({ href, label }) => (
+            <DropdownMenuItem key={href}>
+              <Link href={href} className="w-full">
+                {label}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </MobileSidebarSection>
+
+        <MobileSidebarSection title="Hooks">
+          {hooks.map(({ href, label }) => (
+            <DropdownMenuItem key={href}>
+              <Link href={href} className="w-full">
+                {label}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </MobileSidebarSection>
       </DropdownMenuContent>
     </DropdownMenu>
   );
