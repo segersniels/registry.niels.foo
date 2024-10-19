@@ -20,7 +20,7 @@ export function LayoutTitle({
   return (
     <h1
       className={cn(
-        "w-fit bg-gradient-to-r from-rose-100 to-teal-100 px-3 py-2 text-4xl font-bold tracking-tight sm:text-5xl dark:text-secondary",
+        "text-4xl font-bold tracking-tight sm:text-5xl dark:text-secondary",
         className
       )}
     >
