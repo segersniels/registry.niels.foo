@@ -1,5 +1,6 @@
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
@@ -23,6 +24,8 @@ export default function RootLayout({
       <body
         className={`${GeistSans.variable} ${GeistMono.variable} font-sans bg-background antialiased min-h-screen`}
       >
+        <Analytics />
+
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
