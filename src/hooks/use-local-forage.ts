@@ -1,10 +1,6 @@
 import localForage from "localforage";
 import { useCallback, useEffect, useState } from "react";
 
-localForage.config({
-  name: "foo",
-});
-
 /**
  * A custom hook that provides persistent state management using localForage.
  *
@@ -66,8 +62,13 @@ export default function useLocalForage<T>(
       return;
     }
 
-    retrieve();
-    setIsInitialized(true);
+    localForage.config({
+      name: "foo",
+    });
+
+    retrieve().then(() => {
+      setIsInitialized(true);
+    });
   }, [isInitialized, retrieve]);
 
   useEffect(() => {
