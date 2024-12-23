@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build:registry": "npx bun scripts/build.ts",
-    "build": "npm run build:registry && next build",
+    "build:registry": "bun run scripts/build.ts",
+    "build": "bun run build:registry && next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix"
@@ -52,5 +52,6 @@
   "overrides": {
     "@types/react": "19.0.2",
     "@types/react-dom": "19.0.2"
-  }
+  },
+  "packageManager": "bun@1.1.42"
 }
