@@ -1,4 +1,4 @@
-import Source from "@/components/source";
+import Installation from "@/components/installation";
 
 # useServerAction
 
@@ -58,9 +58,10 @@ export default function Example({ name }: { name: string }) {
 
 ## Installation
 
-```bash
-npx shadcn add "https://registry.niels.foo/use-server-action.json"
-```
+<Installation
+  name="use-server-action"
+  url="https://registry.niels.foo/use-server-action.json"
+/>
 
 ## With Persistence
 
@@ -85,5 +86,3 @@ const { data, isLoading } = useServerAction(
   { persist: true }
 );
 ```
-
-<Source name="use-server-action" />

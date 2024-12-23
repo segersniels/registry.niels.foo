@@ -3,7 +3,6 @@ import { ChevronsUpDown } from "lucide-react";
 import { getSchema } from "@/app/actions";
 import Code from "@/components/code";
 
-import { LayoutSectionTitle } from "./layout";
 import { Button } from "./ui/button";
 import {
   Collapsible,
@@ -21,7 +20,7 @@ export default async function Source({ name }: { name: string }) {
           variant="ghost"
           className="flex items-center space-x-2 p-0 hover:bg-inherit"
         >
-          <LayoutSectionTitle>Source</LayoutSectionTitle>
+          <p className="text-sm">Source</p>
           <ChevronsUpDown className="w-4 h-4" />
         </Button>
       </CollapsibleTrigger>

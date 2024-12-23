@@ -1,5 +1,5 @@
 import Example from "./example";
-import Source from "@/components/source";
+import Installation from "@/components/installation";
 
 # code
 
@@ -9,9 +9,7 @@ A basic code component that can be used to display code with syntax highlighting
 
 ## Installation
 
-```bash
-npx shadcn add "https://registry.niels.foo/code.json"
-```
+<Installation name="code" url="https://registry.niels.foo/code.json" />
 
 ## With Markdown
 
@@ -74,5 +72,3 @@ export function Markdown({ children, className, ...props }: MarkdownProps) {
   );
 }
 ```
-
-<Source name="code" />
