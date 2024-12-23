@@ -19,10 +19,7 @@ export function LayoutTitle({
 }) {
   return (
     <h1
-      className={cn(
-        "text-4xl font-bold tracking-tight sm:text-5xl dark:text-secondary",
-        className
-      )}
+      className={cn("text-4xl font-bold tracking-tight sm:text-5xl", className)}
     >
       {children}
     </h1>
