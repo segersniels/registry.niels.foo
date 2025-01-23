@@ -33,6 +33,7 @@ const hooks = [
   { href: "/use-server-action", label: "useServerAction" },
   { href: "/use-typewriter", label: "useTypewriter" },
   { href: "/use-enter-submit", label: "useEnterSubmit" },
+  { href: "/use-router-refresh", label: "useRouterRefresh" },
 ];
 
 function MobileSidebarSection({
@@ -116,7 +117,7 @@ function CategoryItem({
         {
           "font-medium text-foreground": pathname === href,
         },
-        className
+        className,
       )}
       {...props}
     >

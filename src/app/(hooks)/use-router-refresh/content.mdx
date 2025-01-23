@@ -1,0 +1,36 @@
+import Installation from "@/components/installation";
+
+# useRouterRefresh
+
+Wait for the router to finish navigating before executing a callback.
+
+## Usage
+
+```tsx
+import useRouterRefresh from "@/hooks/use-router-refresh";
+
+export default function Example() {
+  const [isLoading, setIsLoading] = useState(false);
+  const refresh = useRouterRefresh();
+
+  const handleClick = useCallback(async () => {
+    setIsLoading(true);
+    await refresh();
+    console.log("The router has finished navigating.");
+    setIsLoading(false);
+  }, [refresh]);
+
+  return (
+    <Button onClick={handleClick} disabled={isLoading}>
+      Copy
+    </Button>
+  );
+}
+```
+
+## Installation
+
+<Installation
+  name="use-router-refresh"
+  url="https://registry.niels.foo/use-router-refresh.json"
+/>

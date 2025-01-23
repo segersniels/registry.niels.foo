@@ -114,6 +114,11 @@ const components: ComponentDefinition[] = [
     type: "registry:hook",
     path: path.join(__dirname, "../src/hooks/use-copy-to-clipboard.ts"),
   },
+  {
+    name: "use-router-refresh",
+    type: "registry:hook",
+    path: path.join(__dirname, "../src/hooks/use-router-refresh.ts"),
+  },
 ];
 
 // Create the registry directory if it doesn't exist
@@ -148,6 +153,6 @@ for (const component of components) {
 
   fs.writeFileSync(
     path.join(registry, `${component.name}.json`),
-    JSON.stringify(schema, null, 2)
+    JSON.stringify(schema, null, 2),
   );
 }
